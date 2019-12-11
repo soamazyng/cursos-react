@@ -38,4 +38,51 @@ O JSX é uma sintaxe que parece HTML porém é Javascript, mas com o React este 
 
 No build da aplicação este formato é transformado em Javascript, para você utilizar o JSX você precisa importar o React no topo do seu arquivo.
 
+<hr />
+
+## Hooks
+
+Antes da versão 16.8 do React não era possível alterar o estado do componente a partir de componentes funcionais, desta forma era necessário utilizar componentes baseado em classe.
+
+Agora com a criação dos Hooks é possível um componentes funcional fazer alterações de estados utilizando o **useState**. 
+
+Quando utilizar o useState você deve desestruturar o que está retornando no useState, pois a função useState retorna um array.
+
+O primeiro índice deste array é a **variável** que será utilizada, já o **segundo é a função**.
+
+O que colocar dentro do setState vai ser definido como default para a variável.
+
+``` jsx
+ const [contador, setContador] = useState(100)
+
+<button 
+    onClick={() => setContador(contador - 1)}>
+    Dec
+</button>
+```
+
+**useEffect**
+
+Em uma componente funcional também não era possível saber quando o componente foi montado ou quando o componente foi alterado, mas agora podemos utilizar o **useEffect** para criar ganchos nestes momentos de vida do componente.
+
+``` jsx
+const [parOuImpar, setParOuImpar] = useState('Par')
+
+useEffect(() => {
+    contador % 2 === 0 ? setParOuImpar('Par') : 
+        setParOuImpar('Impar')
+})
+```
+
+O useEffect vai sempre ser chamado quando alterarmos a variável **contador**
+
+
+
+
+
+
+
+
+
+
 
