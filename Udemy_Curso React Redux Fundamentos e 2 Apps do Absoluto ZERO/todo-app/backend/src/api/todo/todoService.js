@@ -1,9 +1,6 @@
-const Todo = require('./todo');
+const Todo = require('./todo')
 
-Todo.methods(['get', 'post', 'put', 'delete']);
+Todo.methods(['get', 'post', 'put', 'delete'])
+Todo.updateOptions({new: true, runValidators: true})
 
-// new: true - altera as configurações do update para retornar o registro atualizado
-// runValidators: true - forçar a validação do schema
-Todo.updateOptions({new: true, runValidators: true});
-
-module.exports = Todo;
+module.exports = Todo

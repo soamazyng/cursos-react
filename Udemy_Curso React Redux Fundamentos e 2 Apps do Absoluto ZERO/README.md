@@ -76,6 +76,40 @@ useEffect(() => {
 
 O useEffect vai sempre ser chamado quando alterarmos a variável **contador**
 
+## Chamando uma função no onClick do componente
+
+Toda vez que eu quero chamar uma função no onClick do componente e **não queira** passar nada diferente do próprio evento, a sintaxe é esta:
+
+``` jsx
+<IconButton style='success' icon='check' hide={todo.done} onClick={props.handleMarkAsDone}></IconButton>
+```
+
+Agora, se eu quero passar algo diferente do evento eu preciso criar uma arrow function para passar o parâmetro
+
+``` jsx
+<IconButton style='success' icon='check' hide={todo.done} onClick={() => props.handleMarkAsDone(todo)}></IconButton>
+```
+
+**Obs.:** Os dois componentes acima estão invocando a função que está dentro do componente pai, o componente pai por sua vez envia via **props** a função que está sendo chamada no filho.
+
+``` jsx
+
+//componente pai
+
+//função dentro do pai
+handleMarkAsDone(todo) {
+    axios.put(`${URL}/${todo._id}`, { ...todo, done: true })
+    .then(() => this.refresh(this.state.description))
+}
+
+//componente de list que contém os componentes iconButton
+<TodoList           
+    handleMarkAsDone={this.handleMarkAsDone}                    
+/>
+```
+
+<hr>
+
 
 
 
