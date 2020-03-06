@@ -1,0 +1,153 @@
+body {
+  background: #F2F2F2;
+  margin: 0;
+  font-family: Arial;
+}
+.header {
+  width: 100%;
+  height: 64px;
+  left: 0px;
+  top: 0px;
+  background: #4A90E2;
+}
+
+.logo-facebook {
+  position: absolute;
+  width: 121px;
+  height: 24px;
+  left: 42px;
+  top: 20px;
+}
+
+.meu-perfil{
+  position: absolute;
+  width: 71px;
+  height: 18px;
+  left: 85vw;
+  top: 23px;
+  font-family: ABeeZee;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.post {
+  width: 725px;
+  height: 977px;
+  left: 150px;
+  top: 110px;
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+.post-item {
+  width: 700px;
+  left: 162px;
+  top: 84px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.133916);
+  border-radius: 4px;
+  margin: 0 0 20px auto;
+  padding: 25px;
+  box-sizing: border-box;  
+}
+
+.post-item-container{
+  width: 660px;
+  height: 100%;  
+}
+
+.header-post{
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.avatar{
+  margin-right: 15px;
+  width: 32px;
+  height: 32px;
+  left: 182px;
+  top: 104px;
+  border-radius: 16px;
+}
+
+.avatar img{
+  border-radius: 16px;
+  max-width: 32px;  
+}
+
+.name-post{
+
+  font-family: Arial;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #4A4A4A;
+
+}
+
+.name-post span{
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #9A9A9A;
+}
+
+.content-post{
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #3E3E3E;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.comment-post-container{
+  width: 98%;
+  margin: 10px auto;
+}
+
+.comment-post-item{
+  display: flex;
+}
+
+.comment-post-item-avatar {
+  margin-right: 15px;
+  width: 32px;
+  height: 32px;
+  left: 182px;
+  top: 104px;
+  border-radius: 16px;
+}
+
+.comment-post-item-avatar img{
+  border-radius: 16px;
+  width: 32px;
+  height: 32px;  
+}
+
+.comment-post-item-content{
+  background: #EEEEEE;
+  border-radius: 20px;
+  padding: 15px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  color: #3E3E3E;  
+}
+
+.comment-post-item-content span {
+    font-style: italic;
+}
