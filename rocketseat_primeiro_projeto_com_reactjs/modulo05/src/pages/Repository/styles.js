@@ -78,6 +78,37 @@ export const ButtonFilter = styled.button.attrs(props => ({
 
 `
 
+export const Pagination = styled.div`
+
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+`;
+
+export const PageButton = styled.button.attrs(props => ({
+  disabled: props.loadingButton
+}))`
+
+  background-color:#ffffff;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  cursor:pointer;
+  color:#666666;
+  font-size:16px;
+  padding:6px 6px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffffff;
+  margin-left: 10px;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+`
+
 export const IssuesList = styled.ul`
   padding-top: 30px;
   margin-top:30px;

@@ -3,10 +3,12 @@ import React, {Component} from 'react';
 
 import PropTypes from 'prop-types';
 
+import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from 'react-icons/fa';
+
 import Container from '../../components/Container';
 import api from '../../services/api';
 
-import {Loading, Owner, IssuesList, FilterList, ButtonFilter} from './styles.js';
+import {Loading, Owner, IssuesList, FilterList, ButtonFilter, Pagination, PageButton} from './styles.js';
 
 class Repository extends Component {
 
@@ -21,7 +23,9 @@ class Repository extends Component {
   state = {
     repo: {},
     issues: [],
-    loading: true
+    loading: true,
+    filterSel: '',
+    page: 1
   }
 
   async componentDidMount(){
@@ -48,9 +52,45 @@ class Repository extends Component {
 
   }
 
+  handleFilter = async (filter) => {
+
+    const issues = await api.get(`/repos/${this.state.repo.full_name}/issues`, {
+      params: {
+        state: filter,
+        per_page: 5
+      }
+    })
+
+    this.setState({
+      filterSel: filter,
+      issues: issues.data,
+      page: 1
+    })
+  }
+
+  handlePage = async (actionType) => {
+
+    const currentPage = this.state.page;
+
+    const page = actionType === 'plus' ? currentPage + 1 : currentPage - 1;
+
+    const issues = await api.get(`/repos/${this.state.repo.full_name}/issues`, {
+      params: {
+        state: this.state.filter,
+        per_page: 5,
+        page
+      }
+    })
+
+    this.setState({
+      page,
+      issues: issues.data
+    })
+  }
+
   render() {
 
-    const {repo, issues, loading} = this.state;
+    const {repo, issues, loading, page} = this.state;
 
     if(loading){
       return <Loading>Carregando</Loading>
@@ -67,9 +107,17 @@ class Repository extends Component {
         </Owner>
 
         <FilterList>
-          <ButtonFilter>Todas</ButtonFilter>
-          <ButtonFilter>Abertas</ButtonFilter>
-          <ButtonFilter>Fechadas</ButtonFilter>
+          <ButtonFilter
+            onClick={ () => this.handleFilter('all') }
+            actived={this.state.filterSel === 'all'}>
+              Todas</ButtonFilter>
+          <ButtonFilter
+            onClick={ () => this.handleFilter('open') }
+            actived={this.state.filterSel === 'open' || this.state.filterSel === ''}>
+              Abertas</ButtonFilter>
+          <ButtonFilter
+          onClick={ () => this.handleFilter('closed') }
+          actived={this.state.filterSel === 'closed'}>Fechadas</ButtonFilter>
         </FilterList>
 
         <IssuesList>
@@ -90,6 +138,17 @@ class Repository extends Component {
             </li>
           ))}
         </IssuesList>
+
+          <Pagination>
+            <PageButton
+              loadingButton={this.state.page === 1}
+              onClick={() => this.handlePage()}>
+              <FaRegArrowAltCircleLeft />
+            </PageButton>
+            <PageButton onClick={() => this.handlePage('plus')}>
+            <FaRegArrowAltCircleRight />
+            </PageButton>
+          </Pagination>
 
       </Container>
     )}

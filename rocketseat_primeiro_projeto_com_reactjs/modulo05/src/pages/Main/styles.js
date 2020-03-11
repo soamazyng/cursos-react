@@ -17,8 +17,6 @@ export const Form = styled.form.attrs(props => ({
       border: 1px solid red;
     `}
   }
-
-  }
 `;
 
 const rotate = keyframes`
