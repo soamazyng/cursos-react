@@ -12,7 +12,7 @@ export default function Routes() {
         {/* Precisa colocar o exact para ele carregar a rota
         quando ela for exatamente igual ao que está no path */}
         <Route path="/" exact component={Main} />
-        <Route path="/repository" exact component={Repository} />
+        <Route path="/repository/:repo" exact component={Repository} />
       </Switch>
     </BrowserRouter>
   );

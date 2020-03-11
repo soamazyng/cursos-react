@@ -46,3 +46,11 @@ npm i styled-component
 ```
 npm i react-icons
 ```
+
+## PropTypes
+
+Biblioteca para controlar o tipo de envio de parâmetros
+
+```
+npm i prop-types
+```

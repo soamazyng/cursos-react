@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
+import { Link } from 'react-router-dom';
+
+import Container from '../../components/Container';
 import api from '../../services/api';
 
-import { Container, Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List } from './styles';
 
 class Main extends Component {
+
   state = {
     newRepo: '',
     repositories: [],
@@ -32,7 +36,6 @@ class Main extends Component {
     }
 
   }
-
 
   handleInputChange = e => {
     this.setState({ newRepo: e.target.value });
@@ -88,7 +91,7 @@ class Main extends Component {
               {repositories.map(rep => (
                 <li key={rep.name} >
                   <span>{rep.name}</span>
-                  <a href="">Detalhes</a>
+                  <Link to={`/repository/${encodeURIComponent(rep.name)}`}>Detalhes</Link>
                 </li>
               ))}
           </List>
