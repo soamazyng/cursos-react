@@ -15,6 +15,7 @@ class Main extends Component {
     newRepo: '',
     repositories: [],
     loadingButton: false,
+    hasError: false,
   };
 
   // carregar os dados do localStorage
@@ -44,9 +45,16 @@ class Main extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
+    try {
+
     const { newRepo, repositories } = this.state;
 
-    this.setState({ loadingButton: true });
+    this.setState({ loadingButton: true, hasError: false });
+
+    // check if repository does exists
+    if (repositories.filter(e => e.name === newRepo).length > 0) {
+      throw new Error('Repositório duplicado');
+    }
 
     const response = await api.get(`/repos/${newRepo}`);
 
@@ -59,10 +67,19 @@ class Main extends Component {
       newRepo: '',
       loadingButton: false,
     });
+
+    } catch (error) {
+      this.setState({
+        loadingButton: false,
+        hasError: true,
+      });
+    }
+
+
   };
 
   render() {
-    const { newRepo, repositories, loadingButton } = this.state;
+    const { newRepo, repositories, loadingButton, hasError } = this.state;
 
     return (
       <>
@@ -71,7 +88,7 @@ class Main extends Component {
             <FaGithubAlt />
             Repositórios
           </h1>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} hasError={hasError}>
             <input
               type="text"
               placeholder="Adicionar repositório"

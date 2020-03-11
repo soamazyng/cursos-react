@@ -10,7 +10,6 @@ export const Loading = styled.div`
   height: 100vh;
 `;
 
-
 export const Owner = styled.header`
 
   display: flex;
@@ -48,6 +47,36 @@ export const Owner = styled.header`
   }
 
 `;
+
+export const FilterList = styled.div`
+
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+`;
+
+export const ButtonFilter = styled.button.attrs(props => ({
+  actived: props.actived
+}))`
+
+  background-color:#ffffff;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  cursor:pointer;
+  color:#666666;
+  font-size:12px;
+  padding:6px 6px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffffff;
+  margin-left: 10px;
+
+  ${({ actived }) => actived && `
+      background-color: #ccc;
+  `}
+
+`
 
 export const IssuesList = styled.ul`
   padding-top: 30px;

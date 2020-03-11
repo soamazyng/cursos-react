@@ -1,13 +1,12 @@
+import { Link } from 'react-router-dom'
 import React, {Component} from 'react';
 
-import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 import Container from '../../components/Container';
 import api from '../../services/api';
 
-import PropTypes from 'prop-types'
-
-import {Loading, Owner, IssuesList} from './styles.js'
+import {Loading, Owner, IssuesList, FilterList, ButtonFilter} from './styles.js';
 
 class Repository extends Component {
 
@@ -66,6 +65,12 @@ class Repository extends Component {
           <h1>{repo.name}</h1>
           <p>{repo.description}</p>
         </Owner>
+
+        <FilterList>
+          <ButtonFilter>Todas</ButtonFilter>
+          <ButtonFilter>Abertas</ButtonFilter>
+          <ButtonFilter>Fechadas</ButtonFilter>
+        </FilterList>
 
         <IssuesList>
           {issues.map(issue =>(
