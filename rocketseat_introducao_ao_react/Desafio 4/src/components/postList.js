@@ -11,7 +11,7 @@ class PostList extends Component{
           id: 1,
           author: {
             name: "Julio Alcantara",
-            avatar: "http://url-da-imagem.com/imagem.jpg"
+            avatar: "http://www.randomkittengenerator.com/cats/rotator.php"
           },
           date: "04 Jun 2019",
           content: "Pessoal, alguém sabe se a Rocketseat está contratando?",
@@ -20,9 +20,44 @@ class PostList extends Component{
               id: 1,
               author: {
                 name: "Diego Fernandes",
-                avatar: "http://url-da-imagem.com/imagem.jpg"
+                avatar: "http://blog.esaba.com/projects/catphotos/images/1111054.jpg"
               },
               content: "Conteúdo do comentário"
+            },
+            {
+              id: 2,
+              author: {
+                name: "Diego Fernandes11",
+                avatar: "http://blog.esaba.com/projects/catphotos/images/485449.jpg"
+              },
+              content: "Conteúdo do comentário2"
+            }
+          ]
+        },        
+        {
+          id: 2,
+          author: {
+            name: "Julio Alcantara",
+            avatar: "http://www.randomkittengenerator.com/cats/rotator.php"
+          },
+          date: "04 Jun 2019",
+          content: "Pessoal, alguém sabe se a Rocketseat está contratando?",
+          comments: [
+            {
+              id: 1,
+              author: {
+                name: "Diego Fernandes",
+                avatar: "http://blog.esaba.com/projects/catphotos/images/1111054.jpg"
+              },
+              content: "Conteúdo do comentário"
+            },
+            {
+              id: 2,
+              author: {
+                name: "Diego Fernandes11",
+                avatar: "http://blog.esaba.com/projects/catphotos/images/485449.jpg"
+              },
+              content: "Conteúdo do comentário2"
             }
           ]
         },        
@@ -34,8 +69,11 @@ class PostList extends Component{
       <>
         <HeaderPage />
         <div class="post">
-          <Post />
-          <Post />
+        {
+          this.state.posts.map(post => 
+            <Post key={post.id} data={post} />          
+          )
+        }
         </div>
       </>
     )

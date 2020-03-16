@@ -2,32 +2,33 @@ import React from 'react'
 
 import Comment from './comment';
 
-function post(){
-  return(
+function post({data}){  
+  return(    
     <div class="post-item">
       <div class="post-item-container">
 
         {/* Header Post */}
         <div class="header-post">
             <div class="avatar">
-                <img src="http://www.randomkittengenerator.com/cats/rotator.php" />                               
+                <img src={data.author.avatar} />                               
             </div>
             <div class="name-post">
-              Júlio Alcantara <br />
+              {data.author.name} <br />
               <span>
-              04 Jun 2019</span>
+              {data.date}</span>
             </div>  
           </div> 
           {/* /Header Post */} 
 
           {/* content post */}
           <div class="content-post">        
-            Pessoal, alguém sabe se a Rocketseat está contratando?
+          {data.content}
           </div>
           {/* /content post */}
 
-          <Comment avatar="http://blog.esaba.com/projects/catphotos/images/1111054.jpg" />
-          <Comment avatar="http://blog.esaba.com/projects/catphotos/images/485449.jpg" />
+          {data.comments.map(comment => 
+            <Comment key={comment.id} comment={comment} />
+          )}
           
       </div>
     </div>
