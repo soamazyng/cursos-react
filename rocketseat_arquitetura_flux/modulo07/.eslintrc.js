@@ -22,7 +22,8 @@ module.exports = {
   },
   plugins: [
     'react',
-    'prettier'
+    'prettier',
+    '@babel/plugin-proposal-class-properties'
   ],
   rules: {
     'prettier/prettier' : 'error',
@@ -31,6 +32,8 @@ module.exports = {
       {extensions: ['.jsx', '.js']}
     ],
     'import/prefer-default-export': 'off',
-    'react/state-in-constructor': 'off'
+    'react/state-in-constructor': 'off',
+    'no-console': ["error", {allow: ["tron"]}],
+    'no-param-reassign': 'off'
   },
 };
