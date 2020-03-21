@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-// eu preciso utilizar este bindAction para poder acessar as actions do meu reducer
-// diretamente pelo meu componente.
 import {bindActionCreators} from 'redux';
 
 import { MdAddShoppingCart } from 'react-icons/md';
 
 import api from '../../services/api';
+import {formatPrice} from '../../util/format';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
-
-import {formatPrice} from '../../util/format';
-
-import * as CartActions from '../../store/modules/cart/actions';
 
 class Home extends Component {
 
@@ -36,7 +32,7 @@ class Home extends Component {
   handleAddProduct = id =>{
 
     //serve para disparar a action
-    const {addToCart} = this.props;
+    const {addToCartRequest} = this.props;
     addToCartRequest(id);
     
   }

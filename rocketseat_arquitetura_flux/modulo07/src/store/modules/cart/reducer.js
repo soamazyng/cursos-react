@@ -4,16 +4,8 @@ export default function cart(state = [], action) {
   switch (action.type) {
     case '@cart/ADD_SUCCESS':
       return produce(state, draft => {
-        const prodIndex = draft.findIndex(p => p.id === action.prod.id);
-
-        if (prodIndex >= 0) {
-          draft[prodIndex].amount += 1;
-        } else {
-          draft.push({
-            ...action.prod,
-            amount: 1,
-          });
-        }
+        const { prod } = action;
+        draft.push(prod);
       });
     case '@cart/REMOVE':
       return produce(state, draft => {
