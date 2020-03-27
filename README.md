@@ -32,6 +32,14 @@ Agora instalar as dependências do prettier
 Resolve os problemas com o state={}
 https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
 
+## Plugin eslint para react hooks
+
+```
+npm i eslint-plugin-react-hooks --save-dev
+```
+
+Não esquecer de add dentro do eslintrc.js plugins e add as rules.
+
 ## Trabalhando com Rotas dentro do React
 
 ```
@@ -110,4 +118,18 @@ Reactotron Redux Saga
 
 ```
 npm i reactotron-redux-saga
+```
+
+## React Toastify
+
+```
+npm i react-toastify
+```
+
+## Controlador da history api
+
+Controla as rotas do navegador
+
+```
+npm i history
 ```
