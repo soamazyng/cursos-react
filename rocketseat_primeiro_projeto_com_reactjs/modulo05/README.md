@@ -38,10 +38,10 @@ npm i react-router-dom
 ## Trabalhando com Styled Component
 
 ```
-npm i styled-component
+npm install --save styled-components
 ```
 
-## Pacote de ícones famosos
+## Pacote de ícones mais utilizado para desenvolvedores React
 
 ```
 npm i react-icons
