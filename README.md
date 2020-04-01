@@ -133,3 +133,65 @@ Controla as rotas do navegador
 ```
 npm i history
 ```
+
+## Permite a navegação pelas pastas de forma mais simples
+
+Para fazer esta alteração precisa mudar a forma como o webpack funciona com o create-react-app e para isso é necessário instalar dois módulos para conseguir este tipo de customização.
+
+```javascript
+npm i customize-cra react-app-rewired --save-dev
+```
+
+Após instalar os módulos e criar o arquivo de configuração do overrides precisa instalar o plugin que eu quero inserir no projeto create-react-app
+
+```javascript
+npm i babel-plugin-root-import --save-dev
+```
+
+Com a instalação deste plugin é possível utilizar o **~** indicando que está na pasta src do projeto, e não precisa mais do **../**
+
+Para funcionar é necessário alterar a forma de inicialização do projeto para:
+
+```javascript
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  }
+```
+
+Para que o eslint entenda o ~ é necessário instalar um plugin:
+
+```javascript
+npm i eslint-import-resolver-babel-plugin-root-import --save-dev
+```
+
+E configurar o eslintrc
+
+```javacript
+plugins: ["babel-plugin-root-import"],
+  settings: {
+    "import/resolver": {
+      "babel-plugin-root-import": {
+        rootPathSuffix: "src"
+      },
+    },
+  },
+```
+
+Para voltar a funcionar o goto file ao segurar o ctrl + click é necessário criar um arquivo na raiz do projeto chamado **jsconfig.json**
+Depois de criar este arquivo, devemos reiniciar o vscode para funcionar.
+
+Conteúdo do arquivo:
+
+```
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"],
+    }
+  }
+}
+```
