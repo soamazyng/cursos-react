@@ -1,19 +1,24 @@
 import React from 'react';
 
+import { Provider } from 'react-redux';
+
 import { Router } from 'react-router-dom';
+import './config/ReactotronConfig';
 
 import Routes from './routes';
 
-import './config/ReactotronConfig';
 import history from './services/history';
-import GlobalStyle from './styles/global'; // o global style pode ser inserido em qualquer lugar da aplicação
+import GlobalStyle from './styles/global';
 
+import store from './store';
 function App() {
   return (
-    <Router history={history}>
-      <Routes />
-      <GlobalStyle />
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Routes />
+        <GlobalStyle />
+      </Router>
+    </Provider>
   );
 }
 
