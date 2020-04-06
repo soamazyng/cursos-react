@@ -80,6 +80,11 @@ npm i polished
 npm i redux react-redux
 ```
 
+## Instalação da lib que faz a persistencia dos dados para não perder caso o usuário dê refresh na tela
+```
+npm i redux-persist
+```
+
 ## Instalando o Reactotron REACT e REDUX
 
 ```
