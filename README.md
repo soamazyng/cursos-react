@@ -32,6 +32,14 @@ Agora instalar as dependências do prettier
 Resolve os problemas com o state={}
 https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
 
+## Rodando a aplicação com o webpack-dev-server
+
+Se não estiver utilizando o react-create-app e quiser rodar o webpack direto.
+
+```
+yarn webpack-dev-server --mode development
+```
+
 ## Plugin eslint para react hooks
 
 ```
