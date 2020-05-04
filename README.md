@@ -303,3 +303,51 @@ const Repository: React.FC = () => {
 
 export default Repository;
 ```
+
+---
+
+## Extends do Typescript
+
+Quando você quiser extender alguma coisa do React basta colocar extends na interface.
+E quando você extende vem todos os atributos do jeito que eles são, isso é, se eles não são obrigatórios não serão na interface também, porém se você colocar o mesmo nome de atributo na interface sem o ponto de interrogação ele passará a ser obrigatório.
+No caso abaixo o name não é obrigatório no InputHTMLAtrributes, porém no nosso caso ele se tornou obrigatório pois foi reescrito pela interface.
+
+```typescript
+import React, { InputHTMLAttributes } from "react";
+
+import { Container } from "./input.style";
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+}
+
+const Input: React.FC = () => (
+  <Container>
+    <input type="text" />
+  </Container>
+);
+
+export default Input;
+```
+
+É possível também criar tipagens de objetos que extende outra classe, neste caso não é uma interface, pois **não podemos ter interface vazia**
+
+```typescript
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+```
+
+---
+
+## Usecallback
+
+Quando estamos trabalhando com o componente de função e dentro dele tem outra função, toda vez que ele é criado ou recriado a função interna é criada novamente na memória, causando assim lentidão na nossa aplicação,
+para resolver este tipo de problema vamos utilizar um hook que se chama useCallBack, utilizando este hook a função de dentro não será recriada toda vez que o componente for renderizado novamente por conta de alterações de props etc.
+
+A função para ser utilizada com o useCallBack tem que ser convertida para uma Arrow function e ao redor da função você coloca o useCallback.
+No segundo parâmetro você precisa dizer o que deve ser alterado para essa função ser disparada novamente, se deixar vazio ela nunca mais vai ser recriada.
+
+```javascript
+const handleInputBlur = useCallback(() => {
+  setIsFocused(false);
+}, []);
+```
