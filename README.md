@@ -351,3 +351,7 @@ const handleInputBlur = useCallback(() => {
   setIsFocused(false);
 }, []);
 ```
+
+## Trabalhando com animação no React
+
+[https://www.react-spring.io](https://www.react-spring.io)
