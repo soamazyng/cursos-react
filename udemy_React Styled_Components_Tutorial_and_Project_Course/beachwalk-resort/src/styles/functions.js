@@ -62,3 +62,19 @@ export const media = Object.keys(sizes).reduce((acc, label) => {
   `;
   return acc;
 }, {});
+
+export const setShadow = {
+  light: 'box-shadow: 10px 10px 29px -12px rgba(204,204,204,1);',
+  dark: 'box-shadow: 6px 6px 29px -12px rgba(145,145,145,1);',
+  darkest: 'box-shadow: 10px 10px 29px -2px rgba(89,89,89,1);',
+};
+
+// lembrar que o objeto anterior a este deve ter a position relative
+export const setCenter = () => {
+  return `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+  `;
+};
