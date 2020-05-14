@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
       ref: inputRef.current, // dentro do current que fica o input
       path: 'value',
     });
-  }, [fieldName]);
+  }, [fieldName, registerField]);
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);

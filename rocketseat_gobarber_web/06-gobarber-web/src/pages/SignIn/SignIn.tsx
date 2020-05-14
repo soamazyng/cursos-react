@@ -1,8 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { useAuth } from '../../hooks/auth';
@@ -12,6 +14,7 @@ import logoImg from '../../assets/logo.svg';
 
 import Input from '../../components/Input/input';
 import Button from '../../components/Button/button';
+import Loading from '../../components/Loading/Loading';
 
 import { Container, Content, Background } from './Signin.style';
 
@@ -22,6 +25,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const [loading, setLoading] = useState(false);
 
   // recupera o contexto
   const { signIn } = useAuth();
@@ -31,6 +35,7 @@ const SignIn: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
       formRef.current?.setErrors({});
+      setLoading(true);
       try {
         const schema = Yup.object().shape({
           email: Yup.string()
@@ -47,6 +52,7 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
+        setLoading(false);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
@@ -59,6 +65,8 @@ const SignIn: React.FC = () => {
           title: 'Erro na autenticação',
           description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
         });
+
+        setLoading(false);
       }
     },
     [signIn, addToast],
@@ -79,14 +87,14 @@ const SignIn: React.FC = () => {
             icon={FiLock}
           />
 
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">{loading ? <Loading /> : 'Entrar'}</Button>
           <a href="forgot">Esqueci minha senha</a>
         </Form>
 
-        <a href="create">
+        <Link to="/signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>
