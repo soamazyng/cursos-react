@@ -355,3 +355,7 @@ const handleInputBlur = useCallback(() => {
 ## Trabalhando com animação no React
 
 [https://www.react-spring.io](https://www.react-spring.io)
+
+## Loading spin component para React
+
+[https://www.npmjs.com/package/react-loading-spin](https://www.npmjs.com/package/react-loading-spin)
