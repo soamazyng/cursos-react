@@ -1,8 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-import { setColor, setFont } from '../../styles';
+import { setColor, setFont } from '../../styles/functions';
 
 const Globals = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Lato:wght@400;700&display=swap');
 
 *{
   margin: 0;
@@ -42,7 +41,11 @@ h6{
 }    
 
 p{
-  line-height: 1.5; margin: 0 0 1.5 0;
+  line-height: 1.5; margin: 0 0 1.5rem 0;
+}
+
+button{
+  cursor: pointer;
 }
 
 `;
