@@ -1,65 +1,60 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
-import { FormHandles } from '@unform/core';
+import { FiLogIn, FiMail } from 'react-icons/fi';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.svg';
-
 import { useToast } from '../../hooks/toast';
+
+import logoImg from '../../assets/logo.svg';
 
 import Input from '../../components/Input/input';
 import Button from '../../components/Button/button';
-import Loading from '../../components/Loading/Loading';
 
 import api from '../../services/api';
 
-import { Container, Content, Background } from './SignUp.Style';
+import { Container, Content, Background } from './ForgotPassword.style';
 
-interface SignUpFormData {
-  name: string;
+interface ForgotPasswordFormData {
   email: string;
-  password: string;
 }
 
-const SignUp: React.FC = () => {
+const ForgotPassword: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
   const [loading, setLoading] = useState(false);
+
   // recupera o contexto
   const { addToast } = useToast();
-  const history = useHistory();
-
-  const formRef = useRef<FormHandles>(null);
 
   // envia o formulário
   const handleSubmit = useCallback(
-    async (data: SignUpFormData) => {
+    async (data: ForgotPasswordFormData) => {
       formRef.current?.setErrors({});
       setLoading(true);
       try {
         const schema = Yup.object().shape({
-          name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('E-mail deve ser válido'),
-          password: Yup.string().min(6, 'Deve ter no minímo de 6 digitos'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        // cadastra
-        await api.post('/users', data);
+        // send to api
+        await api.post('/password/forgot', { email: data.email });
+        // toast será disparado aqui
         addToast({
           type: 'success',
-          title: 'Cadastro realizado com sucesso.',
-          description: 'Você já pode fazer seu logon no GoBarber',
+          title: 'E-mail de recuperação enviado com sucesso.',
+          description:
+            'Enviamos um e-mail para confirmar a recuperação de senha, verique sua caixa de entrada.',
         });
-        history.push('/');
-        setLoading(false);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
@@ -69,43 +64,39 @@ const SignUp: React.FC = () => {
         // toast será disparado aqui
         addToast({
           type: 'error',
-          title: 'Erro no cadastro',
-          description: 'Ocorreu um erro ao realizar o cadastro.',
+          title: 'Erro na recuperação de senha',
+          description:
+            'Ocorreu um erro ao recuperar sua senha, verifique seu e-mail.',
         });
-
+      } finally {
         setLoading(false);
       }
     },
-    [addToast, history],
+    [addToast, setLoading],
   );
 
   return (
     <Container>
-      <Background />
       <Content>
         <img src={logoImg} alt="GoBarber" />
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu Cadastro</h1>
-          <Input name="name" placeholder="Nome" icon={FiUser} />
+          <h1>Recuperar senha</h1>
           <Input name="email" type="email" placeholder="E-mail" icon={FiMail} />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            icon={FiLock}
-          />
 
-          <Button type="submit">{loading ? <Loading /> : 'Cadastrar'}</Button>
+          <Button loading={loading} type="submit">
+            Recuperar
+          </Button>
         </Form>
 
         <Link to="/">
-          <FiArrowLeft />
-          Voltar para Logon
+          <FiLogIn />
+          Faça seu logon
         </Link>
       </Content>
+      <Background />
     </Container>
   );
 };
 
-export default SignUp;
+export default ForgotPassword;

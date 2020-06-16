@@ -359,3 +359,25 @@ const handleInputBlur = useCallback(() => {
 ## Loading spin component para React
 
 [https://www.npmjs.com/package/react-loading-spin](https://www.npmjs.com/package/react-loading-spin)
+
+## Erro ao passar um boolean para um componente HTML
+
+Temos que cuidar em nunca mandar um boolean para um componente HTML pois gera um erro no console.
+
+## Lib para trabalhar com o calendário
+
+```shell
+yarn add react-day-picker
+```
+
+Importar no componente a lib que contém os estilos.
+
+```javascript
+import "react-day-picker/lib/style.css";
+```
+
+## Trabalhando com alteração de informações no React
+
+Quando eu faço qualquer alteração no estado do React ele de forma automática renderiza o componente como um todo, por este motivo eu tenho que usar os hooks para impedir que estas rederizações fiquem custosas para a memória da aplicação no final das contas.
+
+Para fazer com que um cálculo ou qualquer tipo de alteração de variável não force a renderização completa do componente utilizamos o **useMemo**

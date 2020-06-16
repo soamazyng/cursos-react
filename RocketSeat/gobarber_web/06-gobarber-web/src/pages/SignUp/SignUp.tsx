@@ -1,84 +1,93 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
-import { Form } from '@unform/web';
+import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import { useAuth } from '../../hooks/auth';
-import { useToast } from '../../hooks/toast';
-
 import logoImg from '../../assets/logo.svg';
+
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/Input/input';
 import Button from '../../components/Button/button';
-import Loading from '../../components/Loading/Loading';
 
-import { Container, Content, Background } from './Signin.style';
+import api from '../../services/api';
 
-interface SignInFormData {
+import { Container, Content, Background } from './SignUp.Style';
+
+interface SignUpFormData {
+  name: string;
   email: string;
   password: string;
 }
 
-const SignIn: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
+const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
-
   // recupera o contexto
-  const { signIn } = useAuth();
   const { addToast } = useToast();
+  const history = useHistory();
+
+  const formRef = useRef<FormHandles>(null);
 
   // envia o formulário
   const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
+    async (data: SignUpFormData) => {
       formRef.current?.setErrors({});
       setLoading(true);
       try {
         const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('E-mail deve ser válido'),
-          password: Yup.string().required('Senha obrigatória'),
+          password: Yup.string().min(6, 'Deve ter no minímo de 6 digitos'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await signIn({
-          email: data.email,
-          password: data.password,
+        // cadastra
+        await api.post('/users', data);
+        addToast({
+          type: 'success',
+          title: 'Cadastro realizado com sucesso.',
+          description: 'Você já pode fazer seu logon no GoBarber',
         });
+        history.push('/');
         setLoading(false);
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
           formRef.current?.setErrors(errors);
+          return;
         }
 
         // toast será disparado aqui
         addToast({
           type: 'error',
-          title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+          title: 'Erro no cadastro',
+          description: 'Ocorreu um erro ao realizar o cadastro.',
         });
-
+      } finally {
         setLoading(false);
       }
     },
-    [signIn, addToast],
+    [addToast, history, setLoading],
   );
 
   return (
     <Container>
+      <Background />
       <Content>
         <img src={logoImg} alt="GoBarber" />
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu logon</h1>
+          <h1>Faça seu Cadastro</h1>
+          <Input name="name" placeholder="Nome" icon={FiUser} />
           <Input name="email" type="email" placeholder="E-mail" icon={FiMail} />
           <Input
             name="password"
@@ -87,18 +96,18 @@ const SignIn: React.FC = () => {
             icon={FiLock}
           />
 
-          <Button type="submit">{loading ? <Loading /> : 'Entrar'}</Button>
-          <a href="forgot">Esqueci minha senha</a>
+          <Button loading={loading} type="submit">
+            Cadastrar
+          </Button>
         </Form>
 
-        <Link to="/signup">
-          <FiLogIn />
-          Criar conta
+        <Link to="/">
+          <FiArrowLeft />
+          Voltar para Logon
         </Link>
       </Content>
-      <Background />
     </Container>
   );
 };
 
-export default SignIn;
+export default SignUp;
