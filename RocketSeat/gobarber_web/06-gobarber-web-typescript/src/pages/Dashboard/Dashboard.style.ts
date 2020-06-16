@@ -49,8 +49,14 @@ export const Profile = styled.div`
       color: #f4ede8;
     }
 
-    strong {
+    a {
+      text-decoration: none;
       color: #ff9000;
+      transition: all 0.5s;
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 `;
@@ -153,7 +159,11 @@ export const Section = styled.section`
     border-bottom: 1px solid #3e3b47;
     display: block;
     padding-bottom: 16px;
-    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+
+  > p {
+    color: #999591;
   }
 `;
 
@@ -170,6 +180,7 @@ export const Appointment = styled.div`
     display: flex;
     align-items: center;
     color: #f4ede8;
+    width: 70px;
 
     svg {
       color: #ff9000;

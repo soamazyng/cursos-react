@@ -1,13 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-
-import logoImg from '../../assets/logo.svg';
 
 import { useToast } from '../../hooks/toast';
 
@@ -16,7 +14,7 @@ import Button from '../../components/Button/button';
 
 import api from '../../services/api';
 
-import { Container, Content, Background } from './SignUp.Style';
+import { Container, Content } from './Profile.Style';
 
 interface FormData {
   name: string;
@@ -24,7 +22,7 @@ interface FormData {
   password: string;
 }
 
-const SignUp: React.FC = () => {
+const Profile: React.FC = () => {
   const [loading, setLoading] = useState(false);
   // recupera o contexto
   const { addToast } = useToast();
@@ -81,12 +79,9 @@ const SignUp: React.FC = () => {
 
   return (
     <Container>
-      <Background />
       <Content>
-        <img src={logoImg} alt="GoBarber" />
-
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu Cadastro</h1>
+          <h1>Meu perfil</h1>
           <Input name="name" placeholder="Nome" icon={FiUser} />
           <Input name="email" type="email" placeholder="E-mail" icon={FiMail} />
           <Input
@@ -97,17 +92,12 @@ const SignUp: React.FC = () => {
           />
 
           <Button loading={loading} type="submit">
-            Cadastrar
+            Confirmar mudanças
           </Button>
         </Form>
-
-        <Link to="/">
-          <FiArrowLeft />
-          Voltar para Logon
-        </Link>
       </Content>
     </Container>
   );
 };
 
-export default SignUp;
+export default Profile;
